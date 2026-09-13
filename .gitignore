@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vite/
+.playwright-mcp/
+unused/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+*.log
