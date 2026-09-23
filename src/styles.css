@@ -137,10 +137,10 @@ button { cursor: pointer; }
 .target__readout--4-terms strong { font-size: max(9px, calc(13px * var(--target-scale))); }
 .target__readout small { color: #d7edff; font-size: max(6px, calc(7px * var(--target-scale))); letter-spacing: .14em; }
 
-.weapons { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+.weapons { position: absolute; inset: 0; z-index: 15; pointer-events: none; isolation: isolate; transform: translateZ(0); }
 .weapon {
   --weapon-scale: .82;
-  position: absolute; bottom: -15px; width: 380px; height: 395px;
+  position: absolute; z-index: 1; bottom: -15px; width: 380px; height: 395px;
   pointer-events: none; filter: drop-shadow(0 14px 10px rgba(44,17,4,.5));
 }
 .weapon--left {
@@ -166,7 +166,7 @@ button { cursor: pointer; }
 .tracer { position: absolute; z-index: 10; left: 242px; top: 43%; right: 18%; height: 3px; transform-origin: left; background: linear-gradient(90deg, #fff, #ffd130, transparent); box-shadow: 0 0 10px #ff8a18; animation: tracer 120ms ease-out forwards; }
 .impact {
   --target-width: 220px; --target-scale: 1;
-  position: absolute; z-index: 12; top: calc(50% - 157.5px * var(--target-scale)); left: 0;
+  position: absolute; z-index: 8; top: calc(50% - 157.5px * var(--target-scale)); left: 0;
   width: var(--target-width); height: calc(320px * var(--target-scale));
   pointer-events: none; filter: drop-shadow(0 15px 9px rgba(48,20,5,.42));
 }
@@ -178,11 +178,13 @@ button { cursor: pointer; }
   background-repeat: no-repeat;
   transform: scaleX(-1);
   transform-origin: center;
-  clip-path: inset(0 18px);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 3px, #000 calc(100% - 3px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 3px, #000 calc(100% - 3px), transparent);
+  clip-path: none;
   animation: vultureBreakSprite 560ms step-end forwards;
 }
 .impact__sprite.vulture-sprite--variant-0,
-.impact__sprite.vulture-sprite--variant-1 { clip-path: inset(0 18px 9px); }
+.impact__sprite.vulture-sprite--variant-1 { clip-path: inset(0 0 9px); }
 .impact__sprite.vulture-sprite--variant-2 { animation-name: vultureBreakShortSprite; }
 .impact__word { position: absolute; z-index: 2; left: 50%; top: 12%; transform: translate(-50%,-50%); color: #fff4bb; text-shadow: 0 2px 3px #7b2409, 0 0 8px #ff6b19; font: 800 calc(13px * var(--target-scale)) 'IBM Plex Mono'; letter-spacing: .2em; animation: solvedWord 460ms ease-out forwards; }
 
@@ -192,31 +194,31 @@ button { cursor: pointer; }
   pointer-events: none;
 }
 .answer-console__pad {
-  width: 184px; padding: 8px;
-  pointer-events: auto; background: rgba(42,24,13,.38); border: 0; border-radius: 12px;
+  width: 212px; padding: 9px;
+  pointer-events: auto; background: rgba(42,24,13,.38); border: 0; border-radius: 14px;
   box-shadow: 0 9px 26px rgba(42,18,6,.28);
   backdrop-filter: blur(2px) saturate(.9);
   will-change: transform;
 }
-.answer-console__drag-handle { display: flex; align-items: center; gap: 7px; margin: -2px 2px 5px; padding: 4px 1px; cursor: grab; touch-action: none; user-select: none; }
+.answer-console__drag-handle { display: flex; align-items: center; gap: 8px; margin: -2px 2px 6px; padding: 5px 1px; cursor: grab; touch-action: none; user-select: none; }
 .answer-console__pad--dragging .answer-console__drag-handle { cursor: grabbing; }
-.answer-console__prompt { color: #ffd36a; font-size: 8px; letter-spacing: .2em; white-space: nowrap; text-shadow: 0 1px 3px #3b1907; }
+.answer-console__prompt { color: #ffd36a; font-size: 9px; letter-spacing: .2em; white-space: nowrap; text-shadow: 0 1px 3px #3b1907; }
 .answer-console__rule { height: 1px; flex: 1; background: rgba(255,211,106,.34); }
-.answer-console__grip { color: rgba(255,234,192,.7); font-size: 10px; letter-spacing: 2px; }
-.answer-console__field { height: 44px; display: grid; grid-template-columns: 20px 1fr; align-items: center; background: rgba(21,12,8,.48); border: 1px solid rgba(255,205,126,.23); border-radius: 7px; padding: 0 8px; }
-.answer-console__field > span { color: #ffb55f; font-size: 25px; animation: blink 1s steps(2) infinite; }
-.answer-console input { width: 100%; height: 100%; border: 0; outline: 0; color: #fff; background: transparent; text-align: center; font: 600 25px 'IBM Plex Mono', monospace; }
+.answer-console__grip { color: rgba(255,234,192,.7); font-size: 12px; letter-spacing: 2px; }
+.answer-console__field { height: 51px; display: grid; grid-template-columns: 23px 1fr; align-items: center; background: rgba(21,12,8,.48); border: 1px solid rgba(255,205,126,.23); border-radius: 8px; padding: 0 9px; }
+.answer-console__field > span { color: #ffb55f; font-size: 29px; animation: blink 1s steps(2) infinite; }
+.answer-console input { width: 100%; height: 100%; border: 0; outline: 0; color: #fff; background: transparent; text-align: center; font: 600 29px 'IBM Plex Mono', monospace; }
 .answer-console input::placeholder { color: #344044; }
-.answer-console__keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 6px; }
+.answer-console__keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 7px; }
 .answer-console__keys button {
-  min-width: 0; height: 38px; border: 1px solid rgba(255,216,151,.3); border-bottom-width: 2px; border-radius: 7px;
+  min-width: 0; height: 44px; border: 1px solid rgba(255,216,151,.3); border-bottom-width: 2px; border-radius: 8px;
   padding: 0; color: #fff4d8; background: linear-gradient(rgba(91,49,23,.48), rgba(45,25,15,.58));
   box-shadow: inset 0 1px rgba(255,235,196,.09);
-  font: 700 17px 'IBM Plex Mono', monospace; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  font: 700 20px 'IBM Plex Mono', monospace; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
 .answer-console__keys button:active { transform: translateY(2px); border-bottom-width: 1px; filter: brightness(1.25); }
 .answer-console__keys button:focus-visible { outline: 2px solid var(--acid); outline-offset: 1px; }
-.answer-console__keys .answer-console__key--utility { color: #ffca75; font-size: 13px; }
+.answer-console__keys .answer-console__key--utility { color: #ffca75; font-size: 15px; }
 .answer-console__shoot {
   position: relative; width: 88px; height: 88px; border: 2px solid #ffb0a8; border-radius: 50%;
   display: grid; place-content: center; justify-items: center; gap: 3px; padding: 0;
@@ -331,12 +333,12 @@ kbd { border: 1px solid #425356; border-bottom-width: 2px; border-radius: 2px; p
   .weapon--left { left: clamp(104px, 33vw, 150px); }
   .weapon--right { right: clamp(104px, 33vw, 150px); }
   .answer-console { left: 8px; right: 8px; bottom: max(8px, env(safe-area-inset-bottom)); }
-  .answer-console__pad { width: min(168px, 54vw); padding: 7px; }
-  .answer-console__drag-handle { margin-bottom: 4px; }
-  .answer-console__field { height: 42px; }
-  .answer-console input { font-size: 24px; }
-  .answer-console__keys { gap: 4px; margin-top: 5px; }
-  .answer-console__keys button { height: 40px; }
+  .answer-console__pad { width: min(193px, 62vw); padding: 8px; }
+  .answer-console__drag-handle { margin-bottom: 5px; }
+  .answer-console__field { height: 48px; }
+  .answer-console input { font-size: 28px; }
+  .answer-console__keys { gap: 5px; margin-top: 6px; }
+  .answer-console__keys button { height: 46px; }
   .answer-console__shoot { width: 82px; height: 82px; margin: 0 4px 5px 0; }
   .overlay { padding: 18px; }
   .ready-panel h1 { font-size: 51px; }
@@ -350,18 +352,18 @@ kbd { border: 1px solid #425356; border-bottom-width: 2px; border-radius: 2px; p
   .hud__stats div { padding: 5px 2px; }
   .hud dd { font-size: 14px; }
   .answer-console { left: 5px; right: 5px; bottom: max(5px, env(safe-area-inset-bottom)); }
-  .answer-console__pad { width: min(160px, 52vw); padding: 6px; }
-  .answer-console__field { height: 38px; }
-  .answer-console input { font-size: 22px; }
-  .answer-console__keys button { height: 36px; font-size: 15px; }
+  .answer-console__pad { width: min(184px, 60vw); padding: 7px; }
+  .answer-console__field { height: 44px; }
+  .answer-console input { font-size: 25px; }
+  .answer-console__keys button { height: 41px; font-size: 17px; }
   .answer-console__shoot { width: 76px; height: 76px; margin-right: 3px; }
   .weapon { --weapon-scale: .58; bottom: -31px; }
   .ready-panel h1 { font-size: clamp(40px, 15vw, 51px); }
 }
 
 @media (max-width: 360px) {
-  .answer-console__pad { width: 150px; }
-  .answer-console__keys button { height: 34px; }
+  .answer-console__pad { width: 173px; }
+  .answer-console__keys button { height: 39px; }
   .answer-console__shoot { width: 70px; height: 70px; }
   .weapon { --weapon-scale: .54; }
 }
@@ -378,13 +380,13 @@ kbd { border: 1px solid #425356; border-bottom-width: 2px; border-radius: 2px; p
   .weapon--left { left: clamp(90px, 22vw, 180px); }
   .weapon--right { right: clamp(90px, 22vw, 180px); }
   .answer-console { left: 5px; right: 5px; bottom: 5px; }
-  .answer-console__pad { width: 148px; padding: 5px; }
-  .answer-console__drag-handle { margin-bottom: 2px; padding: 1px; }
-  .answer-console__prompt { font-size: 6px; }
-  .answer-console__field { height: 30px; }
-  .answer-console input { font-size: 18px; }
-  .answer-console__keys { gap: 3px; margin-top: 3px; }
-  .answer-console__keys button { height: 27px; border-bottom-width: 1px; font-size: 13px; }
+  .answer-console__pad { width: 170px; padding: 6px; }
+  .answer-console__drag-handle { margin-bottom: 2px; padding: 2px; }
+  .answer-console__prompt { font-size: 7px; }
+  .answer-console__field { height: 35px; }
+  .answer-console input { font-size: 21px; }
+  .answer-console__keys { gap: 4px; margin-top: 4px; }
+  .answer-console__keys button { height: 31px; border-bottom-width: 1px; font-size: 15px; }
   .answer-console__shoot { width: 64px; height: 64px; margin: 0 5px 3px 0; }
   .answer-console__reticle { width: 17px; height: 17px; }
   .answer-console__shoot small { font-size: 7px; }
